@@ -1,0 +1,5 @@
+<launch>
+  <param command="$(find xacro)/xacro --inorder '$(find zbot)/urdf/bot_Imu.urdf.xacro'" name="bot_Imu_description" />
+
+  <node args="-param bot_Imu_description -urdf -model bot_Imu" name="spawn_bot_Imu" pkg="gazebo_ros" respawn="false" type="spawn_model" />
+</launch>

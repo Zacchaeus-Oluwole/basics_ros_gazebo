@@ -1,0 +1,149 @@
+<robot name="robot">
+    <link name="bot_Base_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <mass value="1" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+            <mesh filename="package://zbot/meshes/bot_Base.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+            <mesh filename="package://zbot/meshes/bot_Base.dae" />
+            </geometry>
+        </collision>
+    </link>
+
+
+    <link name="bot_Wheel1_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <mass value="1" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+            <mesh filename="package://zbot/meshes/bot_Wheel1.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+            <mesh filename="package://zbot/meshes/bot_Wheel1.dae" />
+            </geometry>
+        </collision>
+    </link>
+
+   <joint name="joint_w1" type="continuous">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="bot_Base_link" />
+        <child link="bot_Wheel1_link" />
+        <axis xyz="0 0 0" />
+   </joint>
+
+    <link name="bot_Wheel2_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <mass value="1" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+            <mesh filename="package://zbot/meshes/bot_Wheel2.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+            <mesh filename="package://zbot/meshes/bot_Wheel2.dae" />
+            </geometry>
+        </collision>
+    </link>
+
+   <joint name="joint_w2" type="continuous">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="bot_Base_link" />
+        <child link="bot_Wheel2_link" />
+        <axis xyz="0 0 0" />
+   </joint>
+
+    <link name="bot_Cam_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <mass value="1" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+            <mesh filename="package://zbot/meshes/bot_Cam.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+            <mesh filename="package://zbot/meshes/bot_Cam.dae" />
+            </geometry>
+        </collision>
+    </link>
+
+   <joint name="joint_cam" type="continuous">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="bot_Base_link" />
+        <child link="bot_Cam_link" />
+        <axis xyz="0 0 0" />
+   </joint>
+
+    <link name="bot_Imu_link">
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <mass value="1" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+            <mesh filename="package://zbot/meshes/bot_Imu.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+            <mesh filename="package://zbot/meshes/bot_Imu.dae" />
+            </geometry>
+        </collision>
+    </link>
+
+   <joint name="joint_imu" type="continuous">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="bot_Base_link" />
+        <child link="bot_Imu_link" />
+        <axis xyz="0 0 0" />
+   </joint>
+
+
+  <gazebo>
+    <static>true</static>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <alwaysOn>true</alwaysOn>
+      <legacyMode>false</legacyMode>
+      <updateRate>40</updateRate>
+      <leftJoint>joint_w1</leftJoint>
+      <rightJoint>joint_w2</rightJoint>
+      <wheelSeparation>2.04</wheelSeparation>
+      <wheelDiameter>0.65</wheelDiameter>
+      <torque>20</torque>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>bot_Base_link</robotBaseFrame>
+    </plugin>
+  </gazebo>
+</robot>

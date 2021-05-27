@@ -1,0 +1,5 @@
+<launch>
+  <param command="$(find xacro)/xacro --inorder '$(find zbot)/urdf/bot_Wheel2.urdf.xacro'" name="bot_Wheel2_description" />
+
+  <node args="-param bot_Wheel2_description -urdf -model bot_Wheel2" name="spawn_bot_Wheel2" pkg="gazebo_ros" respawn="false" type="spawn_model" />
+</launch>
